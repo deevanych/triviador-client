@@ -8,14 +8,11 @@
 
   const unsubscribe = isLoaderShown.subscribe(value => loaderShown = value)
 
-  const we: string = 'queue'
-
   onDestroy(unsubscribe)
 </script>
 
 <section class="layout">
   <div class="container">
-    { we }
     <Router { routes }/>
   </div>
 </section>
