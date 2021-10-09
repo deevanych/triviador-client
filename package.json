@@ -6,11 +6,18 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "lint": "npx eslint .eslintrc.cjs --fix"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.11",
     "@tsconfig/svelte": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-svelte3": "^3.2.1",
     "postcss": "^8.3.8",
     "sass": "^1.42.1",
     "svelte": "^3.37.0",
@@ -18,11 +25,10 @@
     "svelte-materialify": "^0.3.11",
     "svelte-preprocess": "^4.9.8",
     "tslib": "^2.2.0",
-    "typescript": "^4.3.2",
     "vite": "^2.6.0"
   },
   "dependencies": {
-    "pusher-js": "^7.0.3",
+    "typescript": "^4.3.2",
     "socket.io-client": "^4.2.0",
     "svelte-router-spa": "^6.0.2"
   }
