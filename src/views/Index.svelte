@@ -1,13 +1,14 @@
 <script lang="ts">
   import axiosInstance from '../plugins/axios';
   import ButtonComponent from '../components/ButtonComponent.svelte';
-  import { isLoaderShown } from '../store';
+  import { isLoaderShown, token } from '../store';
 
   const clickHandler = () => {
     isLoaderShown.update(() => true);
     axiosInstance.post('/login').then(({ data }) => {
-      isLoaderShown.update(() => false);
-      console.log(data)
+      isLoaderShown.update(() => false)
+      console.log(data.token)
+      token.update(() => data.token)
     })
   }
 </script>

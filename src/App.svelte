@@ -1,10 +1,11 @@
 <script lang="ts">
   import { Router } from 'svelte-router-spa';
   import { routes } from './routes';
-  import { isLoaderShown } from './store';
+  import { isLoaderShown, token } from './store';
   import LoaderComponent from './components/LoaderComponent.svelte';
   import { onDestroy } from 'svelte';
-  let loaderShown = false;
+  let loaderShown = false
+  let tokenc = ''
 
   const unsubscribe = isLoaderShown.subscribe(value => loaderShown = value)
 
