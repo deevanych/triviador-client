@@ -17,7 +17,7 @@
   </div>
 </section>
 {#if loaderShown}
-<LoaderComponent text="Идет подбор соперников .."/>
+<LoaderComponent/>
 {/if}
 
 <style lang="scss">

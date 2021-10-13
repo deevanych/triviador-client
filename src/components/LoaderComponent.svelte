@@ -9,7 +9,9 @@
 </script>
 
 <div class="loader" on:click={ clickHandler }>
+  {#if text}
     <span class="loader__text">{ text }</span>
+  {/if}
 </div>
 
 <style lang="scss">

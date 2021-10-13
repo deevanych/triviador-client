@@ -1,4 +1,4 @@
-import Home from '../views/Home.svelte';
+import Home from '../views/Index.svelte';
 import Match from '../views/Match.svelte';
 
 const routes = [
