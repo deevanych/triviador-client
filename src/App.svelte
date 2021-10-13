@@ -1,15 +1,12 @@
 <script lang="ts">
   import { Router } from 'svelte-router-spa';
   import { routes } from './routes';
-  import { isLoaderShown, token } from './store';
+  import { isLoaderShown } from './store';
   import LoaderComponent from './components/LoaderComponent.svelte';
-  import { onDestroy } from 'svelte';
-  let loaderShown = false
-  let tokenc = ''
 
-  const unsubscribe = isLoaderShown.subscribe(value => loaderShown = value)
+  let shown = false
 
-  onDestroy(unsubscribe)
+  isLoaderShown.subscribe((value => shown = value))
 </script>
 
 <section class="layout">
@@ -17,7 +14,7 @@
     <Router { routes }/>
   </div>
 </section>
-{#if loaderShown}
+{#if shown}
 <LoaderComponent/>
 {/if}
 

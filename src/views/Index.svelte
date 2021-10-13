@@ -1,20 +1,24 @@
 <script lang="ts">
-  import axiosInstance from '../plugins/axios';
-  import ButtonComponent from '../components/ButtonComponent.svelte';
-  import { isLoaderShown, token } from '../store';
+  import axiosInstance from '../plugins/axios'
+  import ButtonComponent from '../components/ButtonComponent.svelte'
+  import { isLoaderShown, token } from '../store'
+
+  export let params = undefined
+  export let currentRoute = undefined
 
   const clickHandler = () => {
-    isLoaderShown.update(() => true);
+    isLoaderShown.update(() => true)
     axiosInstance.post('/login').then(({ data }) => {
       isLoaderShown.update(() => false)
-      console.log(data.token)
       token.update(() => data.token)
     })
   }
 </script>
 
 <section class="login">
-  <ButtonComponent class="button" text="Залогиниться" on:click={ clickHandler }/>
+  <ButtonComponent text="Залогиниться"
+                   ripple={ true }
+                   on:click={ clickHandler }/>
 </section>
 
 <style lang="scss">

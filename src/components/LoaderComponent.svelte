@@ -1,10 +1,10 @@
 <script lang="ts">
     import { isLoaderShown } from '../store';
 
-    export let text!: string
+    export let text: string | undefined = undefined
 
     const clickHandler = () => {
-        isLoaderShown.update((isLoaderShown) => !isLoaderShown);
+        isLoaderShown.update(() => false);
     }
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button } from 'svelte-materialify';
-    export let text!: string;
+    export let text!: string
     export let ripple = false;
 </script>
 

@@ -1,10 +1,10 @@
-import Home from '../views/Index.svelte';
+import Index from '../views/Index.svelte';
 import Match from '../views/Match.svelte';
 
 const routes = [
     {
         name: '/',
-        component: Home,
+        component: Index,
     },
     {
         name: 'match',
