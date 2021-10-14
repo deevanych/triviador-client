@@ -1,10 +1,7 @@
 <script lang="ts">
   import axiosInstance from '../plugins/axios'
-  import ButtonComponent from '../components/ButtonComponent.svelte'
   import { isLoaderShown, token } from '../store'
-
-  export let params = undefined
-  export let currentRoute = undefined
+  import Button from '../components/@ui/Button.svelte';
 
   const clickHandler = () => {
     isLoaderShown.update(() => true)
@@ -16,12 +13,15 @@
 </script>
 
 <section class="login">
-  <ButtonComponent text="Залогиниться"
-                   ripple={ true }
-                   on:click={ clickHandler }/>
+  <Button text="Залогиниться"
+          on:click={ clickHandler }/>
 </section>
 
 <style lang="scss">
+  :global(body) {
+    background: rgba(10, 10, 10, .4);
+  }
+
   .login {
     display: flex;
     align-items: center;

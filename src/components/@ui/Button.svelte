@@ -1,11 +1,9 @@
 <script lang="ts">
-    import { Button } from 'svelte-materialify';
     export let text!: string
-    export let ripple = false;
 </script>
 
 <div class="button__wrapper">
-    <Button on:click class="button" { ripple }>{ text }</Button>
+  <button on:click class="btn btn-lg glass">{ text }</button>
 </div>
 
 <style lang="scss">

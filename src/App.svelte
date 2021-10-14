@@ -3,6 +3,7 @@
   import { routes } from './routes';
   import { isLoaderShown } from './store';
   import LoaderComponent from './components/LoaderComponent.svelte';
+  import './scss/main.scss'
 
   let shown = false
 

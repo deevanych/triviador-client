@@ -1,6 +1,6 @@
 <script lang="ts">
   import axiosInstance from '../plugins/axios';
-  import ButtonComponent from '../components/ButtonComponent.svelte';
+  import ButtonComponent from '../components/Button.svelte';
 
   const clickHandler = () => {
     axiosInstance.post('/login').then(({ data }) => {
