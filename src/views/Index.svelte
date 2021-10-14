@@ -1,7 +1,7 @@
 <script lang="ts">
-  import axiosInstance from '../plugins/axios'
-  import { token } from '../store'
-  import Button from '../components/@ui/Button.svelte';
+  import axiosInstance from '@/plugins/axios'
+  import { token } from '@/store'
+  import Button from '@/components/@ui/Button.svelte';
 
   let isButtonLoading = false
 
@@ -11,7 +11,7 @@
     isButtonLoading = true
     axiosInstance.post('/login')
       .then(({ data }) => {
-        token.update(() => data.token)
+        token.set(data.token)
       })
       .finally(() => {
         isButtonLoading = false
