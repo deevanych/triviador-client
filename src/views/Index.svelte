@@ -1,24 +1,27 @@
 <script lang="ts">
   import axiosInstance from '../plugins/axios'
-  import { isLoaderShown, token } from '../store'
+  import { token } from '../store'
   import Button from '../components/@ui/Button.svelte';
 
-  let loading = false
+  let isButtonLoading = false
+
+  $: buttonText = !isButtonLoading ? 'Вход' : 'Авторизация ..'
 
   const clickHandler = () => {
-    loading = true
-    isLoaderShown.update(() => true)
-    axiosInstance.post('/login').then(({ data }) => {
-      loading = false
-      isLoaderShown.update(() => false)
-      token.update(() => data.token)
-    })
+    isButtonLoading = true
+    axiosInstance.post('/login')
+      .then(({ data }) => {
+        token.update(() => data.token)
+      })
+      .finally(() => {
+        isButtonLoading = false
+      })
   }
 </script>
 
 <section class="login">
-  <Button text="Залогиниться"
-          { loading }
+  <Button text={ buttonText }
+          loading={ isButtonLoading }
           on:click={ clickHandler }/>
 </section>
 
