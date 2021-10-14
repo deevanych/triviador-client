@@ -1,15 +1,17 @@
 <script lang="ts">
-  import { Router } from 'svelte-router-spa';
-  import { routes } from '@/routes';
-  import { isOnline } from '@/store';
-  import Alert from '@/components/@ui/Alert.svelte';
+  import { Router } from 'svelte-router-spa'
+  import { routes } from '@/routes'
+  import { isOnline } from '@/store'
+  import Alert from '@/components/@ui/Alert.svelte'
 
   let _isOnline = false
-  isOnline.subscribe(value => _isOnline = value)
+  isOnline.subscribe(value => {
+    _isOnline = value
+  })
 </script>
 
 <section class="layout">
-  {#if _isOnline}
+  {#if !_isOnline}
   <div class="alert__wrapper">
     <Alert text="Нет подключения к серверу"/>
   </div>
