@@ -2,10 +2,14 @@
   import axiosInstance from '@/plugins/axios'
   import { token } from '@/store'
   import Button from '@/components/@ui/Button.svelte';
+  import { serverInfo } from '../store';
 
   let isButtonLoading = false
+  let _serverInfo = {}
 
   $: buttonText = !isButtonLoading ? 'Вход' : 'Авторизация ..'
+
+  serverInfo.subscribe(data => _serverInfo = data)
 
   const clickHandler = () => {
     isButtonLoading = true
@@ -20,6 +24,21 @@
 </script>
 
 <section class="login">
+  <div class="shadow stats">
+    <div class="stat">
+      <div class="stat-title">Игроков онлайн</div>
+      <div class="stat-value">
+        <span class="countdown">
+          <span style="--value:{ _serverInfo.playersCount };"></span>
+        </span>
+      </div>
+      <div class="stat-desc">Ищут игру:
+        <span class="countdown">
+          <span style="--value:{ _serverInfo.lookingForGamePlayersCount };"></span>
+        </span>
+      </div>
+    </div>
+  </div>
   <Button text={ buttonText }
           loading={ isButtonLoading }
           on:click={ clickHandler }/>
@@ -35,6 +54,8 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    flex-direction: column;
+    gap: 2rem;
 
     & :global(.button) {
       background: aqua;
