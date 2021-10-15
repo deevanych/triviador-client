@@ -12,4 +12,6 @@ socket
     isOnline.set(false)
   })
 
+console.log(socket)
+
 export default socket

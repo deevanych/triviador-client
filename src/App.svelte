@@ -3,10 +3,20 @@
   import { routes } from '@/routes'
   import { isOnline } from '@/store'
   import Alert from '@/components/@ui/Alert.svelte'
+  import toastr from 'toastr'
 
   let _isOnline = false
+
   isOnline.subscribe(value => {
-    _isOnline = value
+    if (_isOnline !== value) {
+      if (value) {
+        toastr.success('Соединение установлено')
+      } else {
+        toastr.error('Соединение прервано')
+      }
+
+      _isOnline = value
+    }
   })
 </script>
 
