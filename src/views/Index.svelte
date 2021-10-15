@@ -23,7 +23,8 @@
   }
 </script>
 
-<section class="login">
+<section class="login prose">
+  <h1 class="site-title">Любовники</h1>
   <div class="shadow stats">
     <div class="stat">
       <div class="stat-title">Игроков онлайн</div>
@@ -60,5 +61,13 @@
     & :global(.button) {
       background: aqua;
     }
+  }
+
+  .prose {
+    max-width: initial;
+  }
+
+  .site-title {
+    margin-bottom: 0;
   }
 </style>
