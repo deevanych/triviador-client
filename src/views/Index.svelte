@@ -1,15 +1,17 @@
 <script lang="ts">
-  import axiosInstance from '@/plugins/axios'
-  import { token } from '@/store'
-  import Button from '@/components/@ui/Button.svelte';
+  import axiosInstance from '../plugins/axios'
+  import { defaultServerInfo, isOnline, token } from '../store'
+  import Button from '../components/@ui/Button.svelte';
   import { serverInfo } from '../store';
 
   let isButtonLoading = false
-  let _serverInfo = {}
+  let _serverInfo = defaultServerInfo
+  let _isOnline = false
 
   $: buttonText = !isButtonLoading ? 'Вход' : 'Авторизация ..'
 
-  serverInfo.subscribe(data => _serverInfo = data)
+  serverInfo.subscribe(value => _serverInfo = value)
+  isOnline.subscribe(value => _isOnline = value)
 
   const clickHandler = () => {
     isButtonLoading = true
@@ -42,6 +44,7 @@
   </div>
   <Button text={ buttonText }
           loading={ isButtonLoading }
+          disabled={ !_isOnline }
           on:click={ clickHandler }/>
 </section>
 
