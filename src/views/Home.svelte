@@ -9,12 +9,7 @@
   import type { UserInterface } from '../models/User';
   import { AuthService } from '../services/AuthService';
 
-  let _user = null
-  let _serverInfo!: { lookingForGamePlayersCount: number; playersCount: number }
   let loading = false
-
-  serverInfo.subscribe((value => _serverInfo = value))
-  authUser.subscribe((value => _user = value))
 
   onMount(() => {
     if ($token) {
@@ -35,25 +30,25 @@
   }
 </script>
 
-{#if _user}
+{#if $authUser}
   <section class="temp-section">
     <header>
       <div class="user__info flex items-center">
         <div class="avatar online">
           <div class="w-24 h-24 p-1 mask mask-squircle bg-primary">
-            <img class="mask mask-squircle" src={ _user.avatar_url } alt={ _user.nickname }>
+            <img class="mask mask-squircle" src={ $authUser.avatar_url } alt={ $authUser.nickname }>
           </div>
         </div>
         <div class="user__data">
-          <h1 class="user__nickname">{ _user.nickname }</h1>
-          <div class="user__rating">Рейтинг: { _user.rating }</div>
+          <h1 class="user__nickname">{ $authUser.nickname }</h1>
+          <div class="user__rating">Рейтинг: { $authUser.rating }</div>
         </div>
       </div>
     </header>
     <div class="temp">
       <span class="temp-text">Игроков ищут:
         <span class="countdown">
-          <span style="--value:{ _serverInfo.lookingForGamePlayersCount };"></span>
+          <span style="--value:{ $serverInfo.lookingForGamePlayersCount };"></span>
         </span>
       </span>
       <Button text="Начать игру"
