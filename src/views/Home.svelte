@@ -3,11 +3,11 @@
   import Button from '../components/@ui/Button.svelte';
   import socket from '../plugins/socket.io';
   import { onMount } from 'svelte';
-  import { isAuth } from '../middlewares/isAuth';
   import { UsersAPI } from '../api/users';
   import { navigateTo } from 'svelte-router-spa';
   import { UserService } from '../services/UserService';
-  import { User, UserInterface } from '../models/User';
+  import type { UserInterface } from '../models/User';
+  import { AuthService } from '../services/AuthService';
 
   let _user = null
   let _serverInfo!: { lookingForGamePlayersCount: number; playersCount: number }
@@ -21,7 +21,7 @@
       UsersAPI.getAuthUser().then(({ data }): void => {
         UserService.setAuthUser(data as UserInterface)
       }).catch(() => {
-        UserService.logout()
+        AuthService.logout()
         navigateTo('/')
       })
     } else {

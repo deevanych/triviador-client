@@ -16,8 +16,4 @@ export class UserService {
     const user = this.createUserInstance(data)
     authUser.set(user)
   }
-
-  public static logout(): void {
-    token.set('')
-  }
 }

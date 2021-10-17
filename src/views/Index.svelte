@@ -8,6 +8,7 @@
   import { UsersAPI } from '../api/users';
   import { UserService } from '../services/UserService';
   import type { UserInterface } from '../models/User';
+  import { AuthService, TokenInterface } from '../services/AuthService';
 
   let isButtonLoading = false
   let isButtonDisabled = true
@@ -20,7 +21,7 @@
         UserService.setAuthUser(data as UserInterface)
         navigateTo('home')
       }).catch((): void => {
-        UserService.logout()
+        AuthService.logout()
         isButtonDisabled = false
       })
     }
@@ -32,8 +33,7 @@
     isButtonLoading = true
     axiosInstance.post('/login')
       .then(({data}) => {
-        token.set(data.token)
-        axiosSetToken(data.token)
+        AuthService.login(data as TokenInterface)
         navigateTo('home')
       })
       .finally(() => {
