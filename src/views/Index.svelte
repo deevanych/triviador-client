@@ -1,8 +1,10 @@
 <script lang="ts">
   import axiosInstance from '../plugins/axios'
-  import { defaultServerInfo, isOnline, token } from '../store'
+  import { authUser, defaultServerInfo, isOnline, token } from '../store'
   import Button from '../components/@ui/Button.svelte';
   import { serverInfo } from '../store';
+  import { UsersAPI } from '../api/users';
+  import { navigateTo } from 'svelte-router-spa';
 
   let isButtonLoading = false
   let _serverInfo = defaultServerInfo
@@ -17,7 +19,15 @@
     isButtonLoading = true
     axiosInstance.post('/login')
       .then(({ data }) => {
+        token.subscribe(value => {
+          localStorage.setItem('token', value)
+        })
         token.set(data.token)
+        UsersAPI.getAuthUser().then(({ data }) => {
+          console.log(data)
+          authUser.set(data)
+        })
+        navigateTo('home')
       })
       .finally(() => {
         isButtonLoading = false
