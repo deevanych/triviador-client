@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { authUser, serverInfo, token } from '../store';
+  import { authUser, isLoading, serverInfo, token } from '../store';
   import Button from '../components/@ui/Button.svelte';
   import socket from '../plugins/socket.io';
   import { onMount } from 'svelte';
@@ -15,11 +15,14 @@
     if ($token) {
       UsersAPI.getAuthUser().then(({ data }): void => {
         UserService.setAuthUser(data as UserInterface)
+        isLoading.set(false)
       }).catch(() => {
+        isLoading.set(true)
         AuthService.logout()
         navigateTo('/')
       })
     } else {
+      isLoading.set(true)
       navigateTo('/')
     }
   })

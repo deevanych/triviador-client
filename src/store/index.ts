@@ -10,6 +10,7 @@ export const token = writable(localStorage.getItem('token') ?? '')
 export const isOnline = writable(false)
 export const serverInfo = writable(defaultServerInfo)
 export const authUser = writable({} as UserInterface)
+export const isLoading = writable(true)
 
 token.subscribe(value => {
   localStorage.setItem('token', value)

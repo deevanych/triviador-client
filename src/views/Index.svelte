@@ -1,6 +1,6 @@
 <script lang="ts">
-  import axiosInstance, { axiosSetToken } from '../plugins/axios'
-  import { serverInfo, isOnline, token } from '../store'
+  import axiosInstance from '../plugins/axios'
+  import { serverInfo, isOnline, token, isLoading } from '../store'
   import { navigateTo } from 'svelte-router-spa';
 
   import Button from '../components/@ui/Button.svelte';
@@ -16,20 +16,25 @@
   $: buttonText = !isButtonLoading ? 'Вход' : 'Авторизация ..'
 
   onMount(() => {
+    isLoading.set(true)
     if ($token) {
       UsersAPI.getAuthUser().then(({data}): void => {
+        isLoading.set(true)
         UserService.setAuthUser(data as UserInterface)
         navigateTo('home')
       }).catch((): void => {
         AuthService.logout()
         isButtonDisabled = false
+        isLoading.set(false)
       })
+    } else {
+      isLoading.set(false)
+      isButtonDisabled = false
     }
-
-    isButtonDisabled = false
   })
 
   const clickHandler = () => {
+    isLoading.set(true)
     isButtonLoading = true
     axiosInstance.post('/login')
       .then(({data}) => {

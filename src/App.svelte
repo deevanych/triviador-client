@@ -1,11 +1,15 @@
 <script lang="ts">
   import { Router } from 'svelte-router-spa'
   import { routes } from './routes'
-  import { isOnline } from './store'
+  import { isLoading, isOnline } from './store'
   import Alert from './components/@ui/Alert.svelte'
   import toastr from 'toastr'
+  import Loader from './components/Loader.svelte';
 
   let _isOnline = false
+  let _isLoading = true
+
+  isLoading.subscribe((value) => _isLoading = value)
 
   isOnline.subscribe(value => {
     if (_isOnline !== value) {
@@ -20,6 +24,9 @@
   })
 </script>
 
+{#if _isLoading}
+  <Loader/>
+{/if}
 <section class="layout">
   {#if !_isOnline}
   <div class="alert__wrapper">
