@@ -3,7 +3,7 @@ import { token } from '../store';
 
 const SERVER_URL = `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_SERVER_PORT}`
 
-let _token!: string
+let _token!: string | null
 
 token.subscribe((value) => _token = value)
 
@@ -14,5 +14,9 @@ export const axiosInstance: AxiosInstance = axios.create({
     'Authorization': `Bearer ${ _token }`,
   },
 });
+
+export const axiosSetToken = (token) => {
+  axiosInstance.defaults.headers['Authorization'] = `Bearer ${token}`
+}
 
 export default axiosInstance

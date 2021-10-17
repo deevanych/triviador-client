@@ -1,32 +1,39 @@
 <script lang="ts">
-  import axiosInstance from '../plugins/axios'
-  import { authUser, defaultServerInfo, isOnline, token } from '../store'
-  import Button from '../components/@ui/Button.svelte';
-  import { serverInfo } from '../store';
-  import { UsersAPI } from '../api/users';
+  import axiosInstance, { axiosSetToken } from '../plugins/axios'
+  import { serverInfo, isOnline, token } from '../store'
   import { navigateTo } from 'svelte-router-spa';
 
+  import Button from '../components/@ui/Button.svelte';
+  import { onMount } from 'svelte';
+  import { UsersAPI } from '../api/users';
+  import { UserService } from '../services/UserService';
+  import type { UserInterface } from '../models/User';
+
   let isButtonLoading = false
-  let _serverInfo = defaultServerInfo
-  let _isOnline = false
+  let isButtonDisabled = true
 
   $: buttonText = !isButtonLoading ? 'Вход' : 'Авторизация ..'
 
-  serverInfo.subscribe(value => _serverInfo = value)
-  isOnline.subscribe(value => _isOnline = value)
+  onMount(() => {
+    if ($token) {
+      UsersAPI.getAuthUser().then(({data}): void => {
+        UserService.setAuthUser(data as UserInterface)
+        navigateTo('home')
+      }).catch((): void => {
+        UserService.logout()
+        isButtonDisabled = false
+      })
+    }
+
+    isButtonDisabled = false
+  })
 
   const clickHandler = () => {
     isButtonLoading = true
     axiosInstance.post('/login')
-      .then(({ data }) => {
-        token.subscribe(value => {
-          localStorage.setItem('token', value)
-        })
+      .then(({data}) => {
         token.set(data.token)
-        UsersAPI.getAuthUser().then(({ data }) => {
-          console.log(data)
-          authUser.set(data)
-        })
+        axiosSetToken(data.token)
         navigateTo('home')
       })
       .finally(() => {
@@ -42,19 +49,19 @@
       <div class="stat-title">Игроков онлайн</div>
       <div class="stat-value">
         <span class="countdown">
-          <span style="--value:{ _serverInfo.playersCount };"></span>
+          <span style="--value:{ $serverInfo.playersCount };"></span>
         </span>
       </div>
       <div class="stat-desc">Ищут игру:
         <span class="countdown">
-          <span style="--value:{ _serverInfo.lookingForGamePlayersCount };"></span>
+          <span style="--value:{ $serverInfo.lookingForGamePlayersCount };"></span>
         </span>
       </div>
     </div>
   </div>
   <Button text={ buttonText }
           loading={ isButtonLoading }
-          disabled={ !_isOnline }
+          disabled={ !$isOnline || isButtonDisabled }
           on:click={ clickHandler }/>
 </section>
 

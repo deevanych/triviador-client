@@ -1,8 +1,8 @@
 <script lang="ts">
   import { Router } from 'svelte-router-spa'
-  import { routes } from '@/routes'
-  import { isOnline } from '@/store'
-  import Alert from '@/components/@ui/Alert.svelte'
+  import { routes } from './routes'
+  import { isOnline } from './store'
+  import Alert from './components/@ui/Alert.svelte'
   import toastr from 'toastr'
 
   let _isOnline = false

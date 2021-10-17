@@ -1,23 +1,8 @@
 import { io } from 'socket.io-client/dist/socket.io.js';
-import { defaultServerInfo, isOnline, serverInfo, token, authUser } from '../store';
-
-let _token: string | null = null
-// todo
-let _authUser!: { id: number }
-
-token.subscribe((value => _token = value))
-authUser.subscribe((value => {
-  _authUser = value
-}))
-
-const getUserId = () => _authUser.id
+import { defaultServerInfo, isOnline, serverInfo } from '../store';
 
 const COORDINATOR_URL = `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_COORDINATOR_PORT}`
-export const socket = io(COORDINATOR_URL, {
-  extraHeaders: {
-    userId: getUserId(),
-  },
-});
+export const socket = io(COORDINATOR_URL);
 
 socket
   .on('connect', () => {

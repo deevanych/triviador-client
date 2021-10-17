@@ -1,7 +1,13 @@
 <script lang="ts">
-  import { authUser, serverInfo } from '../store';
+  import { authUser, serverInfo, token } from '../store';
   import Button from '../components/@ui/Button.svelte';
   import socket from '../plugins/socket.io';
+  import { onMount } from 'svelte';
+  import { isAuth } from '../middlewares/isAuth';
+  import { UsersAPI } from '../api/users';
+  import { navigateTo } from 'svelte-router-spa';
+  import { UserService } from '../services/UserService';
+  import { User, UserInterface } from '../models/User';
 
   let _user = null
   let _serverInfo!: { lookingForGamePlayersCount: number; playersCount: number }
@@ -9,6 +15,19 @@
 
   serverInfo.subscribe((value => _serverInfo = value))
   authUser.subscribe((value => _user = value))
+
+  onMount(() => {
+    if ($token) {
+      UsersAPI.getAuthUser().then(({ data }): void => {
+        UserService.setAuthUser(data as UserInterface)
+      }).catch(() => {
+        UserService.logout()
+        navigateTo('/')
+      })
+    } else {
+      navigateTo('/')
+    }
+  })
 
   const clickHandler = () => {
     loading = true
