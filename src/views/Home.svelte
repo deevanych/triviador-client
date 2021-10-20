@@ -14,7 +14,7 @@
   onMount(() => {
     if ($token) {
       UsersAPI.getAuthUser().then(({ data }): void => {
-        UserService.setAuthUser(data as UserInterface)
+        AuthService.login(data as UserInterface)
         isLoading.set(false)
       }).catch(() => {
         isLoading.set(true)
@@ -29,6 +29,7 @@
 
   const clickHandler = () => {
     loading = true
+    console.log(socket)
     socket.emit('findGame')
   }
 </script>

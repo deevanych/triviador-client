@@ -2,7 +2,11 @@ import { io } from 'socket.io-client/dist/socket.io.js';
 import { defaultServerInfo, isOnline, serverInfo } from '../store';
 
 const COORDINATOR_URL = `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_COORDINATOR_PORT}`
-export const socket = io(COORDINATOR_URL);
+export const socket = io(COORDINATOR_URL, {
+  auth: {
+    token: null,
+  },
+});
 
 socket
   .on('connect', () => {

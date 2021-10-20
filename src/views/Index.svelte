@@ -18,15 +18,7 @@
   onMount(() => {
     isLoading.set(true)
     if ($token) {
-      UsersAPI.getAuthUser().then(({data}): void => {
-        isLoading.set(true)
-        UserService.setAuthUser(data as UserInterface)
-        navigateTo('home')
-      }).catch((): void => {
-        AuthService.logout()
-        isButtonDisabled = false
-        isLoading.set(false)
-      })
+      navigateTo('home')
     } else {
       isLoading.set(false)
       isButtonDisabled = false
@@ -37,8 +29,8 @@
     isLoading.set(true)
     isButtonLoading = true
     axiosInstance.post('/login')
-      .then(({data}) => {
-        AuthService.login(data as TokenInterface)
+      .then(({ data }): void => {
+        AuthService.setToken((data as TokenInterface).token)
         navigateTo('home')
       })
       .finally(() => {

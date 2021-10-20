@@ -4,7 +4,7 @@
   import { isLoading, isOnline } from './store'
   import Alert from './components/@ui/Alert.svelte'
   import toastr from 'toastr'
-  import Loader from './components/Loader.svelte';
+  import Loader from './components/Loader.svelte'
 
   let _isOnline = false
   let _isLoading = true

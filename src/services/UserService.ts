@@ -1,6 +1,8 @@
 import { User } from '../models/User';
 import type { UserInterface } from '../models/User';
-import { authUser, token } from '../store';
+import { authUser } from '../store';
+import { AxiosService } from './AxiosService';
+import { SocketService } from './SocketService';
 
 export class UserService {
   public static createUserInstance(data: UserInterface): User {
@@ -14,6 +16,7 @@ export class UserService {
 
   public static setAuthUser(data: UserInterface): void {
     const user = this.createUserInstance(data)
+
     authUser.set(user)
   }
 }
