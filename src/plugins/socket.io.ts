@@ -26,5 +26,13 @@ socket
   .on('startGame', () => {
     navigateTo('match')
   })
+  .on('userNotFound', () => {
+    navigateTo('/')
+  })
+  .on('goToLobby', () => {
+    navigateTo('/')
+  })
+
+socket.emit('getMatchData')
 
 export default socket
