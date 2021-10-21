@@ -23,5 +23,8 @@ socket
   .on('gameCopyAlreadyOpen', () => {
     navigateTo('bye-bye')
   })
+  .on('startGame', () => {
+    navigateTo('match')
+  })
 
 export default socket
