@@ -1,12 +1,13 @@
 <script lang="ts">
-    export let text!: string
     export let loading = false
     export let disabled = false
     export let alwaysEnabled = false
     export let squared = false
+    export let background = ''
 </script>
 
-<div class="button__wrapper">
+<div class="button__wrapper {background !== '' ? `bg-${background}` : ''}"
+     class:button__wrapper_squared={ squared }>
   <button on:click
           class="btn btn-lg glass"
           class:loading={ loading }
@@ -22,6 +23,10 @@
       $button: &;
 
       &__wrapper {
+        &_squared {
+          border-radius: var(--rounded-btn, .5rem);
+        }
+
         & :global {
           .btn {
             &_enabled {
