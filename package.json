@@ -33,6 +33,7 @@
     "@types/lodash": "^4.14.176",
     "axios": "^0.23.0",
     "daisyui": "^1.14.4",
+    "dayjs": "^1.10.7",
     "lodash": "^4.17.21",
     "socket.io-client": "^4.2.0",
     "svelte-router-spa": "^6.0.2",

@@ -8,9 +8,15 @@
   import type { UserInterface } from '../models/User'
   import { AuthService } from '../services/AuthService'
   import Cross from '../icons/Cross.svelte'
+  import dayjs from 'dayjs';
+  import duration from 'dayjs/plugin/duration'
+
+  dayjs.extend(duration)
 
   let loading = false
-  $: searchButtonText = !loading ? 'Начать игру' : 'Идет поиск соперников'
+  let timer
+  let searchTime = '00:00'
+  $: searchButtonText = !loading ? 'Начать игру' : `Идет поиск соперников (${searchTime})`
 
   onMount(() => {
     if ($token) {
@@ -29,11 +35,17 @@
   })
 
   const findGame = () => {
+    const now = dayjs()
+    timer = setInterval(() => {
+      searchTime = dayjs.duration(dayjs().diff(now)).format('mm:ss')
+    }, 1000)
     loading = true
     socket.emit('findGame')
   }
 
   const stopFindGame = () => {
+    clearTimeout(timer)
+    searchTime = '00:00'
     loading = false
     socket.emit('stopFindGame')
   }
