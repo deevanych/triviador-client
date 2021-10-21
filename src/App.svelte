@@ -60,6 +60,7 @@
   .container {
     width: 70%;
     height: 80%;
+    display: flex;
   }
 
   .alert__wrapper {
