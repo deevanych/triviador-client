@@ -1,36 +1,15 @@
 <script lang="ts">
+  import Map from '../components/Map.svelte'
+  import { isLoading } from '../store'
+  import socket from '../plugins/socket.io'
 
+  isLoading.set(false)
+
+  socket.emit('getMatchData')
 </script>
 
-<section class="map">
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-    <div class="map__territory"></div>
-</section>
+<Map/>
 
 <style lang="scss">
-    .map {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
 
-      &__territory {
-        width: 100px;
-        height: 100px;
-        background: tomato;
-        opacity: 0.3;
-      }
-    }
 </style>
