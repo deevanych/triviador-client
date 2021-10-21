@@ -12,17 +12,19 @@
 
   isLoading.subscribe((value) => _isLoading = value)
 
-  isOnline.subscribe(debounce((value) => {
-    if (_isOnline !== value) {
-      if (value) {
-        toastr.success('Соединение установлено')
-      } else {
-        toastr.error('Соединение прервано')
-      }
+  const debounced = debounce((value) => {
+      if (_isOnline !== value) {
+        if (value) {
+          toastr.success('Соединение установлено')
+        } else {
+          toastr.error('Соединение прервано')
+        }
 
-      _isOnline = value
-    }
-  }, 500))
+        _isOnline = value
+      }
+    }, 300) as (value: boolean) => {}
+
+  isOnline.subscribe(value => debounced(value))
 </script>
 
 {#if _isLoading}
