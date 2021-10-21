@@ -5,13 +5,14 @@
   import Alert from './components/@ui/Alert.svelte'
   import toastr from 'toastr'
   import Loader from './components/Loader.svelte'
+  import { debounce } from 'lodash';
 
   let _isOnline = false
   let _isLoading = true
 
   isLoading.subscribe((value) => _isLoading = value)
 
-  isOnline.subscribe(value => {
+  isOnline.subscribe(debounce((value) => {
     if (_isOnline !== value) {
       if (value) {
         toastr.success('Соединение установлено')
@@ -21,7 +22,7 @@
 
       _isOnline = value
     }
-  })
+  }, 500))
 </script>
 
 {#if _isLoading}

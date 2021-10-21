@@ -30,8 +30,10 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.4.1",
+    "@types/lodash": "^4.14.176",
     "axios": "^0.23.0",
     "daisyui": "^1.14.4",
+    "lodash": "^4.17.21",
     "socket.io-client": "^4.2.0",
     "svelte-router-spa": "^6.0.2",
     "toastr": "^2.1.4",
