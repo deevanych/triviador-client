@@ -12,7 +12,9 @@
           class:loading={ loading }
           class:btn_enabled={ alwaysEnabled }
           class:btn-square={ squared }
-          { disabled }>{ text }</button>
+          { disabled }>
+    <slot/>
+  </button>
 </div>
 
 <style lang="scss">
