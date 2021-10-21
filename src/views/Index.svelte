@@ -56,10 +56,11 @@
       </div>
     </div>
   </div>
-  <Button text={ buttonText }
-          loading={ isButtonLoading }
+  <Button loading={ isButtonLoading }
           disabled={ !$isOnline || isButtonDisabled }
-          on:click={ clickHandler }/>
+          on:click={ clickHandler }>
+    { buttonText }
+  </Button>
 </section>
 
 <style lang="scss">

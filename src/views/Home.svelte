@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { authUser, isLoading, serverInfo, token } from '../store'
+  import { authUser, isLoading, serverInfo, token, isOnline } from '../store'
   import Button from '../components/@ui/Button.svelte'
   import socket from '../plugins/socket.io'
   import { onMount } from 'svelte'
@@ -13,10 +13,10 @@
 
   dayjs.extend(duration)
 
-  let loading = false
+  let gameIsSearched = false
   let timer
   let searchTime = '00:00'
-  $: searchButtonText = !loading ? 'Начать игру' : `Идет поиск соперников (${searchTime})`
+  $: searchButtonText = !gameIsSearched ? 'Начать игру' : `Идет поиск соперников (${searchTime})`
 
   onMount(() => {
     if ($token) {
@@ -32,22 +32,40 @@
       isLoading.set(true)
       navigateTo('/')
     }
+
+    isOnline.subscribe((value => {
+        if (!value)
+          stopSearchingGame()
+      })
+    )
   })
 
-  const findGame = () => {
+  socket.on('gameSearchStarted', () => {
+    startSearchingGame()
+  }).on('gameSearchStopped', () => {
+    stopSearchingGame()
+  })
+
+  const startGameSearch = () => {
+    socket.emit('startGameSearch')
+  }
+
+  const stopGameSearch = () => {
+    socket.emit('stopGameSearch')
+  }
+
+  const startSearchingGame = () => {
     const now = dayjs()
     timer = setInterval(() => {
       searchTime = dayjs.duration(dayjs().diff(now)).format('mm:ss')
     }, 1000)
-    loading = true
-    socket.emit('findGame')
+    gameIsSearched = true
   }
 
-  const stopFindGame = () => {
+  export const stopSearchingGame = () => {
     clearTimeout(timer)
     searchTime = '00:00'
-    loading = false
-    socket.emit('stopFindGame')
+    gameIsSearched = false
   }
 </script>
 
@@ -73,14 +91,15 @@
         </span>
       </span>
       <div class="search-buttons">
-        <Button on:click={ findGame }
-                { loading }>
+        <Button on:click={ startGameSearch }
+                disabled={ !$isOnline }
+                loading={ gameIsSearched }>
           { searchButtonText }
         </Button>
-        { #if loading }
+        { #if gameIsSearched }
         <Button squared={ true }
                 background="error"
-                on:click={ stopFindGame }>
+                on:click={ stopGameSearch }>
           <Cross/>
         </Button>
         {/if}
