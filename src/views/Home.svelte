@@ -1,15 +1,16 @@
 <script lang="ts">
-  import { authUser, isLoading, serverInfo, token } from '../store';
-  import Button from '../components/@ui/Button.svelte';
-  import socket from '../plugins/socket.io';
-  import { onMount } from 'svelte';
-  import { UsersAPI } from '../api/users';
-  import { navigateTo } from 'svelte-router-spa';
-  import { UserService } from '../services/UserService';
-  import type { UserInterface } from '../models/User';
-  import { AuthService } from '../services/AuthService';
+  import { authUser, isLoading, serverInfo, token } from '../store'
+  import Button from '../components/@ui/Button.svelte'
+  import socket from '../plugins/socket.io'
+  import { onMount } from 'svelte'
+  import { UsersAPI } from '../api/users'
+  import { navigateTo } from 'svelte-router-spa'
+  import type { UserInterface } from '../models/User'
+  import { AuthService } from '../services/AuthService'
+  import Cross from '../icons/Cross.svelte'
 
   let loading = false
+  $: searchButtonText = !loading ? 'Начать игру' : 'Идет поиск соперников'
 
   onMount(() => {
     if ($token) {
@@ -27,10 +28,14 @@
     }
   })
 
-  const clickHandler = () => {
+  const findGame = () => {
     loading = true
-    console.log(socket)
     socket.emit('findGame')
+  }
+
+  const stopFindGame = () => {
+    loading = false
+    socket.emit('stopFindGame')
   }
 </script>
 
@@ -55,14 +60,29 @@
           <span style="--value:{ $serverInfo.lookingForGamePlayersCount };"></span>
         </span>
       </span>
-      <Button text="Начать игру"
-              on:click={ clickHandler }
-              { loading }/>
+      <div class="search-buttons">
+        <Button on:click={ findGame }
+                { loading }>
+          { searchButtonText }
+        </Button>
+        { #if loading }
+        <Button squared={ true }
+                background="error"
+                on:click={ stopFindGame }>
+          <Cross/>
+        </Button>
+        {/if}
+      </div>
     </div>
   </section>
 {/if}
 
 <style lang="scss">
+  .search-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
   .temp {
     display: flex;
     align-items: center;

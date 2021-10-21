@@ -22,7 +22,7 @@
 
         _isOnline = value
       }
-    }, 300) as (value: boolean) => {}
+    }, 500) as (value: boolean) => {}
 
   isOnline.subscribe(value => debounced(value))
 </script>
