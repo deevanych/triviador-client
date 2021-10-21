@@ -3,6 +3,7 @@
     export let loading = false
     export let disabled = false
     export let alwaysEnabled = false
+    export let squared = false
 </script>
 
 <div class="button__wrapper">
@@ -10,6 +11,7 @@
           class="btn btn-lg glass"
           class:loading={ loading }
           class:btn_enabled={ alwaysEnabled }
+          class:btn-square={ squared }
           { disabled }>{ text }</button>
 </div>
 
