@@ -21,7 +21,7 @@
       <p>Сейчас вы в игре. Переподключиться к матчу?</p>
       <div class="modal-action">
         <label for="asdddsa" on:click={ clickHandler } class="btn btn-primary">Подключиться</label>
-        <label for="asdddsa" on:click={ cancelClickHandler } class="btn">Отмена</label>
+        <label for="asdddsa" on:click={ cancelClickHandler } class="btn">Выйти из матча</label>
       </div>
     </div>
   </div>
