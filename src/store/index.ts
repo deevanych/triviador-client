@@ -11,6 +11,7 @@ export const isOnline = writable(false)
 export const serverInfo = writable(defaultServerInfo)
 export const authUser = writable({} as UserInterface)
 export const isLoading = writable(true)
+export const isPopupShown = writable(false)
 
 token.subscribe(value => {
   localStorage.setItem('token', value)

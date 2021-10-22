@@ -4,7 +4,6 @@
   import socket from '../plugins/socket.io'
 
   isLoading.set(false)
-
   socket.emit('getMatchData')
 </script>
 

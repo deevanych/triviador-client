@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client/dist/socket.io.js';
-import { defaultServerInfo, isOnline, serverInfo } from '../store';
+import { defaultServerInfo, isOnline, isPopupShown, serverInfo } from '../store';
 import { navigateTo } from 'svelte-router-spa';
 
 const COORDINATOR_URL = `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_COORDINATOR_PORT}`
@@ -31,6 +31,9 @@ socket
   })
   .on('goToLobby', () => {
     navigateTo('/')
+  })
+  .on('goToActiveMatch', () => {
+    isPopupShown.set(true)
   })
 
 socket.emit('getMatchData')

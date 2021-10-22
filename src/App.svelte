@@ -1,16 +1,23 @@
 <script lang="ts">
-  import { Router } from 'svelte-router-spa'
+  import { navigateTo, Router } from 'svelte-router-spa'
   import { routes } from './routes'
-  import { isLoading, isOnline } from './store'
+  import { isLoading, isOnline, isPopupShown } from './store'
   import Alert from './components/@ui/Alert.svelte'
   import toastr from 'toastr'
   import Loader from './components/Loader.svelte'
   import { debounce } from 'lodash';
+  import Popup from './components/Popup.svelte';
 
   let _isOnline = false
   let _isLoading = true
+  let _isPopupShown = false
 
+  isPopupShown.subscribe((value) => _isPopupShown = value)
   isLoading.subscribe((value) => _isLoading = value)
+
+  const popupHandler = () => {
+    navigateTo('/match')
+  }
 
   const debounced = debounce((value) => {
       if (_isOnline !== value) {
@@ -40,6 +47,9 @@
     <Router { routes }/>
   </div>
 </section>
+{#if _isPopupShown}
+<Popup on:goToMatch={ popupHandler }/>
+{/if}
 
 <style lang="scss">
   :global(#app),
