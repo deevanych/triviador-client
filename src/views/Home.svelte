@@ -67,6 +67,11 @@
     searchTime = '00:00'
     gameIsSearched = false
   }
+
+  const logout = () => {
+    AuthService.logout()
+    navigateTo('/')
+  }
 </script>
 
 {#if $authUser}
@@ -96,6 +101,11 @@
                 loading={ gameIsSearched }>
           { searchButtonText }
         </Button>
+        { #if !gameIsSearched }
+        <Button on:click={ logout }>
+          Выйти из аккаунта
+        </Button>
+        {/if}
         { #if gameIsSearched }
         <Button squared={ true }
                 background="error"
