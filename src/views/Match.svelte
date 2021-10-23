@@ -8,12 +8,12 @@
   let show = false
 
   onMount(() => {
-    isLoading.set(false)
     socket.emit('getMatchData')
 
     socket.on('matchData', (data) => {
       match = data
       show = true
+      isLoading.set(false)
     })
   })
 </script>
