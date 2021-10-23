@@ -11,6 +11,7 @@
     socket.emit('getMatchData')
 
     socket.on('matchData', (data) => {
+      console.log(data)
       match = data
       show = true
       isLoading.set(false)
