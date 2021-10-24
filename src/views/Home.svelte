@@ -16,6 +16,7 @@
   let gameIsSearched = false
   let timer
   let searchTime = '00:00'
+  let _authUser
   $: searchButtonText = !gameIsSearched ? 'Начать игру' : `Идет поиск соперников (${searchTime})`
 
   onMount(() => {
@@ -38,6 +39,8 @@
           stopSearchingGame()
       })
     )
+
+    authUser.subscribe((value) => _authUser = value)
   })
 
   socket.on('gameSearchStarted', () => {
@@ -74,19 +77,19 @@
   }
 </script>
 
-{#if $authUser}
+{#if _authUser}
   <section class="temp-section">
     <header>
       <div class="stat bg-transparent">
         <div class="stat-figure text-info">
           <div class="avatar online">
             <div class="w-16 h-16 p-1 mask mask-squircle bg-base-100">
-              <img src={ $authUser.avatar_url } alt={ $authUser.nickname } class="mask mask-squircle"/>
+              <img src={ _authUser.avatar_url } alt={ _authUser.nickname } class="mask mask-squircle"/>
             </div>
           </div>
         </div>
-        <div class="stat-value">{ $authUser.nickname }</div>
-        <div class="stat-title">Рейтинг: { $authUser.rating }</div>
+        <div class="stat-value">{ _authUser.nickname }</div>
+        <div class="stat-title">Рейтинг: { _authUser.rating }</div>
       </div>
     </header>
     <div class="temp">
