@@ -4,6 +4,7 @@ import type { UserInterface } from '../models/User';
 export const defaultServerInfo = {
   playersCount: 0,
   lookingForGamePlayersCount: 0,
+  playingPlayers: 0
 }
 
 export const token = writable(localStorage.getItem('token') ?? '')

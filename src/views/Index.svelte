@@ -54,6 +54,11 @@
           <span style="--value:{ $serverInfo.lookingForGamePlayersCount };"></span>
         </span>
       </div>
+      <div class="stat-desc">В матче:
+        <span class="countdown">
+          <span style="--value:{ $serverInfo.playingPlayers };"></span>
+        </span>
+      </div>
     </div>
   </div>
   <Button loading={ isButtonLoading }
