@@ -1,10 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
   import socket from '../plugins/socket.io'
 
-  const dispatch = createEventDispatcher()
   const clickHandler = () => {
-    dispatch('goToMatch')
+    socket.emit('connectToMatch')
   }
   const cancelClickHandler = () => {
     socket.emit('leaveMatch')
