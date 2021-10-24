@@ -77,16 +77,16 @@
 {#if $authUser}
   <section class="temp-section">
     <header>
-      <div class="user__info flex items-center">
-        <div class="avatar online">
-          <div class="w-24 h-24 p-1 mask mask-squircle bg-primary">
-            <img class="mask mask-squircle" src={ $authUser.avatar_url } alt={ $authUser.nickname }>
+      <div class="stat bg-transparent">
+        <div class="stat-figure text-info">
+          <div class="avatar online">
+            <div class="w-16 h-16 p-1 mask mask-squircle bg-base-100">
+              <img src={ $authUser.avatar_url } alt={ $authUser.nickname } class="mask mask-squircle"/>
+            </div>
           </div>
         </div>
-        <div class="user__data">
-          <h1 class="user__nickname">{ $authUser.nickname }</h1>
-          <div class="user__rating">Рейтинг: { $authUser.rating }</div>
-        </div>
+        <div class="stat-value">{ $authUser.nickname }</div>
+        <div class="stat-title">Рейтинг: { $authUser.rating }</div>
       </div>
     </header>
     <div class="temp">
@@ -140,16 +140,6 @@
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-    }
-  }
-
-  .user {
-    &__info {
-      gap: 1rem;
-    }
-
-    &__nickname {
-      font-size: 2rem;
     }
   }
 </style>
