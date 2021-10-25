@@ -5,6 +5,8 @@
   import { onMount } from 'svelte'
   import { User } from '../models/User';
   import Disconnected from '../icons/Disconnected.svelte';
+  import Castle from '../icons/Castle.svelte';
+  import Land from '../icons/Land.svelte';
 
   let match
   let show = false
@@ -89,9 +91,15 @@
         {#each match.stages as stage}
           <li class="step">
             <div class="avatar">
-              <div class="mb-8 rounded-box w-10 h-10 ring ring-primary ring-offset-base-100 ring-offset-2">
-                {#if typeof getUser(stage.userId) !== 'undefined'}
-                  <img src={ getUser(stage.userId).avatar_url }/>
+              <div class="mb-8 rounded-full bg-base-100 w-10 h-10 ring ring-primary ring-offset-base-100 ring-offset-2">
+                {#if stage.type === 'initial'}
+                  <Castle/>
+                {:else if stage.type === 'defining'}
+                  <Land/>
+                {:else }
+                  <img class="mask mask-squircle"
+                       src={ getUser(stage.user_id).avatar_url }
+                       alt={ getUser(stage.user_id).nickname}/>
                 {/if}
               </div>
             </div>
