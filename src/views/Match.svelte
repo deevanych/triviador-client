@@ -34,6 +34,10 @@
 
     socket.on('matchEvent', (data) => {
       switch (data.type) {
+        case 'battleStarted':
+          console.log(1, data)
+          break
+
         case 'userDisconnected':
           matchPlayers.map((player) => {
             if (data.userId === player.id) {
